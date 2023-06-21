@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { argv } from 'process';
 import readline from 'readline';
+import { currentDirectory } from './helpres/currentDirectory.js';
 
 const args = Object.fromEntries(
     argv.slice(2).map((arg) => {
@@ -8,25 +9,20 @@ const args = Object.fromEntries(
         return [key, value]
     })
 )
-const username = args['--username'] ? args['--username'] : 'Anonim'
+const username = args['--username'] ? args['--username'] : 'Anonim';
 
 console.log(`Welcome to the File Manager, ${username}!`);
+currentDirectory();
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-let currentDirectory = process.cwd();
-
-function printCurrentDirectory() {
-  console.log(`You are currently in ${currentDirectory}`);
-}
 
 rl.on('close', () => {
   console.log(`Thank you for using File Manager, ${username}, goodbye!`);
 });
-
 rl.on('line', (input) => {
     if (input === '.exit') {
       rl.close();
@@ -35,4 +31,4 @@ rl.on('line', (input) => {
     processUserInput(input);
   });
 
-printCurrentDirectory();
+

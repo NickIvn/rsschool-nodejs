@@ -7,10 +7,10 @@ export function handleRename(oldName, newName) {
 
   fs.rename(oldPath, newPath, (error) => {
     if (error) {
-      console.error('Error renaming file:', error);
+      console.error('Operation failed');
       return;
     }
 
-    console.log(`Renamed file from ${oldPath} to ${newPath}`);
+    console.log(`Renamed file from ${oldName} to ${newName}`);
   });
 }

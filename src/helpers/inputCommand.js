@@ -1,6 +1,6 @@
 export const inputCommand = (input, myEmitter) => {
     const [command, ...args] = input.split(' ');
-    const command_list = ['cat', 'add', 'rn', 'cd', 'up', 'ls', 'cp'];
+    const command_list = ['cat', 'add', 'rn', 'cd', 'up', 'ls', 'cp', 'mv'];
     for (let i = 0; i < command_list.length; i++) {
       if (command === command_list[i]) {
         if (command === 'ls') {
@@ -11,7 +11,10 @@ export const inputCommand = (input, myEmitter) => {
         } else if (command === 'cp' && args.length === 2) {
           const [source, newDirectory] = args;
           myEmitter.emit('cp', source, newDirectory);
-        }else {
+        } else if (command === 'mv' && args.length === 2) {
+          const [source, newDirectory] = args;
+          myEmitter.emit('mv', source, newDirectory);
+        } else {
           myEmitter.emit(command, args)
         }
           break;

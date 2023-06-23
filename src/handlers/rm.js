@@ -1,16 +1,18 @@
 import fs from 'fs';
 import { getCurrentDir } from "../helpers/index.js"
 
-export function handleRemove(filePath) {
-  const currentDirectory = process.cwd();
-  const fullPath = `${currentDirectory}/${filePath}`;
+export async function handleRemove(filePath) {
+  const fullPath = `${process.cwd()}/${filePath}`;
 
-  fs.unlink(fullPath, (error) => {
-    if (error) {
-      console.error('Operation failed', error);
-      return;
-    }
-    getCurrentDir();
+  await new Promise((resolve, reject) => {
+    fs.unlink(fullPath, (error) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve();
+      }
+    });
   });
-}
 
+  getCurrentDir();
+}

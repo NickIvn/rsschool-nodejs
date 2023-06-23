@@ -15,8 +15,8 @@ import {
     calculateHash,
     handleCompress,
     handleDecompress,
-    printOSInfo
 } from './handlers/index.js'
+import { handleOsCommand }from './handlers/os/index.js'
 import { inputCommand } from './helpers/inputCommand.js';
 
 process.chdir(os.homedir());
@@ -41,7 +41,7 @@ myEmitter
     .on('hash', calculateHash)
     .on('compress', handleCompress)
     .on('decompress', handleDecompress)
-    .on('os', printOSInfo)
+    .on('os', handleOsCommand)
 
 
 const FileManager = async () => {

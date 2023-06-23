@@ -1,6 +1,6 @@
 import { getCurrentDir } from "../helpers/index.js"
 
-export const handleUp = async () => {
+export async function handleUp () {
     try{
         process.chdir('..')
         getCurrentDir()

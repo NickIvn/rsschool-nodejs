@@ -2,16 +2,14 @@ import fs from 'fs';
 import path from 'path';
 import { getCurrentDir } from "../helpers/index.js"
 
-export function handleCopyFile(source, newDirectory) {
-  const currentDirectory = process.cwd();
-  const sourcePath = `${currentDirectory}/${source}`;
-  const destinationPath = path.join(currentDirectory, newDirectory, path.basename(source));
+export async function handleCopyFile(source, newDirectory) {
+  const sourcePath = `${process.cwd()}/${source}`;
+  const destinationPath = path.join(process.cwd(), newDirectory, path.basename(source));
 
-  fs.copyFile(sourcePath, destinationPath, (error) => {
-    if (error) {
-      console.error('Operation failed', error);
-      return;
-    }
+  try {
+    await fs.promises.copyFile(sourcePath, destinationPath);
     getCurrentDir();
-  });
+  } catch (error) {
+    console.error('Operation failed', error);
+  }
 }

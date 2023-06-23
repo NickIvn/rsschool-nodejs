@@ -1,21 +1,29 @@
 import fs from 'fs';
 import { getCurrentDir } from "../helpers/index.js"
 
-export function handleCat(fileName) {
-  const currentDirectory = process.cwd();
-  const filePath = `${currentDirectory}/${fileName}`;
+export async function handleCat(fileName) {
+  const filePath = `${process.cwd()}/${fileName}`;
 
-  const readable = fs.createReadStream(filePath, { encoding: 'utf8' });
+  try {
+    const readable = fs.createReadStream(filePath, { encoding: 'utf8' });
 
-  readable.on('data', (chunk) => {
-    console.log(chunk);
-  });
+    readable.on('data', (chunk) => {
+      console.log(chunk);
+    });
 
-  readable.on('end', () => {
+    await new Promise((resolve) => {
+      readable.on('end', () => {
+        resolve();
+      });
+
+      readable.on('error', (error) => {
+        console.error('Operation failed');
+        resolve();
+      });
+    });
+
     getCurrentDir();
-  });
-
-  readable.on('error', (error) => {
+  } catch (error) {
     console.error('Operation failed');
-  });
+  }
 }

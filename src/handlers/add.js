@@ -1,15 +1,13 @@
 import fs from 'fs';
 import { getCurrentDir } from "../helpers/index.js"
 
-export function handleAdd(fileName) {
-  const currentDirectory = process.cwd();
-  const filePath = `${currentDirectory}/${fileName}`;
+export async function handleAdd(fileName) {
+  const filePath = `${process.cwd()}/${fileName}`;
 
-  fs.writeFile(filePath, '', (error) => {
-    if (error) {
-      console.error('Operation failed');
-      return;
-    }
+  try {
+    await fs.promises.writeFile(filePath, '');
     getCurrentDir();
-  });
+  } catch (error) {
+    console.error('Operation failed');
+  }
 }

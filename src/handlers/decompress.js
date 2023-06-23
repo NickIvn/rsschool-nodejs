@@ -2,10 +2,9 @@ import fs from 'fs';
 import { getCurrentDir } from "../helpers/index.js";
 import zlib from 'zlib';
 
-export function handleDecompress(filePath, destinationPath) {
-  const currentDirectory = process.cwd();
-  const fullFilePath = `${currentDirectory}/${filePath}`;
-  const fullDestinationPath = `${currentDirectory}/${destinationPath}`;
+export async function handleDecompress(filePath, destinationPath) {
+  const fullFilePath = `${process.cwd()}/${filePath}`;
+  const fullDestinationPath = `${process.cwd()}/${destinationPath}`;
 
   let hasReadError = false;
 
@@ -22,14 +21,19 @@ export function handleDecompress(filePath, destinationPath) {
     writable.destroy();
   });
 
-  writable.on('finish', () => {
-    if (!hasReadError) {
-    // console.log('File decompressed successfully');
-    getCurrentDir();
-    }
+  await new Promise((resolve, reject) => {
+    writable.on('finish', () => {
+      if (!hasReadError) {
+        resolve();
+      } else {
+        reject(new Error('Operation failed'));
+      }
+    });
+
+    writable.on('error', (error) => {
+      reject(error);
+    });
   });
 
-  writable.on('error', (error) => {
-    console.error('Operation failed');
-  });
+  getCurrentDir();
 }

@@ -1,16 +1,19 @@
 import fs from 'fs';
 import { getCurrentDir } from "../helpers/index.js"
 
-export function handleRename(oldName, newName) {
-  const currentDirectory = process.cwd();
-  const oldPath = `${currentDirectory}/${oldName}`;
-  const newPath = `${currentDirectory}/${newName}`;
+export async function handleRename(oldName, newName) {
+  const oldPath = `${process.cwd()}/${oldName}`;
+  const newPath = `${process.cwd()}/${newName}`;
 
-  fs.rename(oldPath, newPath, (error) => {
-    if (error) {
-      console.error('Operation failed');
-      return;
-    }
-    getCurrentDir();
+  await new Promise((resolve, reject) => {
+    fs.rename(oldPath, newPath, (error) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve();
+      }
+    });
   });
+
+  getCurrentDir();
 }

@@ -2,7 +2,7 @@ import { promises as fs } from 'fs';
 import { resolve } from 'path';
 import { getCurrentDir } from '../helpers/index.js';
 
-export const handleList = async () => {
+export async function handleList () {
   try {
     const currentPath = resolve(process.cwd());
     const files = await fs.readdir(currentPath);

@@ -12,7 +12,9 @@ import {
     handleCopyFile,
     handleMoveFile,
     handleRemove,
-    calculateHash
+    calculateHash,
+    handleCompress,
+    handleDecompress
 } from './handlers/index.js'
 import { inputCommand } from './helpers/inputCommand.js';
 
@@ -36,6 +38,8 @@ myEmitter
     .on('mv', handleMoveFile)
     .on('rm', handleRemove)
     .on('hash', calculateHash)
+    .on('compress', handleCompress)
+    .on('decompress', handleDecompress)
 
 
 const FileManager = async () => {

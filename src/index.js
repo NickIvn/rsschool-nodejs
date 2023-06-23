@@ -14,7 +14,8 @@ import {
     handleRemove,
     calculateHash,
     handleCompress,
-    handleDecompress
+    handleDecompress,
+    printOSInfo
 } from './handlers/index.js'
 import { inputCommand } from './helpers/inputCommand.js';
 
@@ -40,6 +41,7 @@ myEmitter
     .on('hash', calculateHash)
     .on('compress', handleCompress)
     .on('decompress', handleDecompress)
+    .on('os', printOSInfo)
 
 
 const FileManager = async () => {

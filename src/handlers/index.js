@@ -10,3 +10,4 @@ export * from './rm.js';
 export * from './hash.js';
 export * from './compress.js';
 export * from './decompress.js';
+export * from './os.js';

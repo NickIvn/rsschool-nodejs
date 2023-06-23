@@ -6,3 +6,4 @@ export * from './up.js';
 export * from './ls.js';
 export * from './cp.js';
 export * from './mv.js';
+export * from './rm.js';

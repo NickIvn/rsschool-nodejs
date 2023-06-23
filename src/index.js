@@ -11,7 +11,8 @@ import {
     handleList,
     handleCopyFile,
     handleMoveFile,
-    handleRemove
+    handleRemove,
+    calculateHash
 } from './handlers/index.js'
 import { inputCommand } from './helpers/inputCommand.js';
 
@@ -34,6 +35,7 @@ myEmitter
     .on('cp', handleCopyFile)
     .on('mv', handleMoveFile)
     .on('rm', handleRemove)
+    .on('hash', calculateHash)
 
 
 const FileManager = async () => {

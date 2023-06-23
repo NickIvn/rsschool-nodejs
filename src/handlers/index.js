@@ -7,3 +7,4 @@ export * from './ls.js';
 export * from './cp.js';
 export * from './mv.js';
 export * from './rm.js';
+export * from './hash.js';

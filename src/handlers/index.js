@@ -4,3 +4,4 @@ export * from './rn.js';
 export * from './cd.js';
 export * from './up.js';
 export * from './ls.js';
+export * from './cp.js';

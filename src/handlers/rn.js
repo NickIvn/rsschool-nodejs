@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { getCurrentDir } from "../helpers/index.js"
 
 export function handleRename(oldName, newName) {
   const currentDirectory = process.cwd();
@@ -10,7 +11,6 @@ export function handleRename(oldName, newName) {
       console.error('Operation failed');
       return;
     }
-
-    console.log(`Renamed file from ${oldName} to ${newName}`);
+    getCurrentDir();
   });
 }

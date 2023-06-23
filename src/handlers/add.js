@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { getCurrentDir } from "../helpers/index.js"
 
 export function handleAdd(fileName) {
   const currentDirectory = process.cwd();
@@ -9,7 +10,6 @@ export function handleAdd(fileName) {
       console.error('Operation failed');
       return;
     }
-
-    console.log(`Created file: ${fileName}`);
+    getCurrentDir();
   });
 }

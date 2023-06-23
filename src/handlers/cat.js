@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { getCurrentDir } from "../helpers/index.js"
 
 export function handleCat(fileName) {
   const currentDirectory = process.cwd();
@@ -11,7 +12,7 @@ export function handleCat(fileName) {
   });
 
   readable.on('end', () => {
-    console.log(`Finished reading file: ${fileName}`);
+    getCurrentDir();
   });
 
   readable.on('error', (error) => {

@@ -7,9 +7,10 @@ export async function handleCopyFile(source, newDirectory) {
   const destinationPath = path.join(process.cwd(), newDirectory, path.basename(source));
 
   try {
+    await fs.promises.access(sourcePath, fs.constants.F_OK);
     await fs.promises.copyFile(sourcePath, destinationPath);
-    getCurrentDir();
   } catch (error) {
-    console.error('Operation failed', error);
+    console.error('Operation failed');
   }
+  getCurrentDir();
 }

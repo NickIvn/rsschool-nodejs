@@ -8,6 +8,13 @@ export async function handleDecompress(filePath, destinationPath) {
 
   let hasReadError = false;
 
+  try {
+    await fs.promises.access(fullFilePath, fs.constants.F_OK);
+  } catch (error) {
+    console.error('Operation failed');
+    return;
+  }
+
   const readable = fs.createReadStream(fullFilePath);
   const writable = fs.createWriteStream(fullDestinationPath);
 
@@ -15,25 +22,22 @@ export async function handleDecompress(filePath, destinationPath) {
 
   readable.pipe(decompressStream).pipe(writable);
 
-  readable.on('error', (error) => {
+  try {
+    await new Promise((resolve, reject) => {
+      writable.on('finish', () => {
+        if (!hasReadError) {
+          resolve();
+        } else {
+          reject(new Error('Operation failed'));
+        }
+      });
+
+      writable.on('error', (error) => {
+        reject(error);
+      });
+    });
+  } catch (error) {
     console.error('Operation failed');
-    hasReadError = true;
-    writable.destroy();
-  });
-
-  await new Promise((resolve, reject) => {
-    writable.on('finish', () => {
-      if (!hasReadError) {
-        resolve();
-      } else {
-        reject(new Error('Operation failed'));
-      }
-    });
-
-    writable.on('error', (error) => {
-      reject(error);
-    });
-  });
-
+  }
   getCurrentDir();
 }

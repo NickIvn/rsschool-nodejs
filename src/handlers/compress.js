@@ -9,6 +9,13 @@ export async function handleCompress(filePath, destinationPath) {
   let hasReadError = false;
 
   try {
+    await fs.promises.access(fullFilePath, fs.constants.F_OK);
+  } catch (error) {
+    console.error('Operation failed');
+    return;
+  }
+
+
     const readable = fs.createReadStream(fullFilePath);
     const writable = fs.createWriteStream(fullDestinationPath);
 
@@ -21,7 +28,7 @@ export async function handleCompress(filePath, destinationPath) {
     const compressStream = zlib.createBrotliCompress(brotliOptions);
 
     readable.pipe(compressStream).pipe(writable);
-
+try {
     await new Promise((resolve) => {
       readable.on('error', (error) => {
         console.error('Operation failed');
@@ -41,9 +48,8 @@ export async function handleCompress(filePath, destinationPath) {
         resolve();
       });
     });
-
-    getCurrentDir();
   } catch (error) {
-    console.error('Operation failed');
+    console.error('Operation Failed');
   }
+  getCurrentDir();
 }

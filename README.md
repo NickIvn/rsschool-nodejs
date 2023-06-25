@@ -1,1 +1,1 @@
-# rsschool-nodejs
+# File manager

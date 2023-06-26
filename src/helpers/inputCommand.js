@@ -27,7 +27,7 @@ export const inputCommand = (input, myEmitter) => {
           } else {
             myEmitter.emit(command, args)
           }
-        } else {
+        } else if (command !== '.exit') {
           console.log('Invalid command');
           getCurrentDir();
         }

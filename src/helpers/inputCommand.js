@@ -1,4 +1,5 @@
 import { getCurrentDir } from '../helpers/index.js';
+import { displayCommand } from './displayCommand.js';
 
 export const inputCommand = (input, myEmitter) => {
     const [command, ...args] = input.split(' ');
@@ -15,7 +16,8 @@ export const inputCommand = (input, myEmitter) => {
       'hash',
       'compress',
       'decompress',
-      'os'
+      'os',
+      'help'
     ];
       if (command_list.includes(command)) {
         if (args.length >= 2) {
@@ -24,10 +26,12 @@ export const inputCommand = (input, myEmitter) => {
             myEmitter.emit('ls');
           } else if (command === 'os') {
             myEmitter.emit(command, args[0]);
+          } else if (command === 'help') {
+            displayCommand();
           } else {
             myEmitter.emit(command, args)
           }
-        } else if (command !== '.exit') {
+        }  else if (command !== '.exit') {
           console.log('Invalid command');
           getCurrentDir();
         }

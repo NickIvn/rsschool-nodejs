@@ -1,10 +1,12 @@
-import { getCurrentDir } from "../helpers/index.js"
+import { getCurrentDir } from "../helpers/index.js";
+import os from 'os';
 
 export const handleCd = async ([pathToDirectory]) => {
-    try{
-        process.chdir(pathToDirectory)
-        getCurrentDir()
-    } catch(err){
-        console.error('Operation failed')
-    }   
-}
+    try {
+        const targetDirectory = pathToDirectory || os.homedir();
+        process.chdir(targetDirectory);
+        getCurrentDir();
+    } catch(err) {
+        console.error('Operation failed');
+    }
+};
